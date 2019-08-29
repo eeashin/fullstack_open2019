@@ -34,4 +34,3 @@ const Course = ({ course }) => {
   );
 };
 export default Course;
- 
