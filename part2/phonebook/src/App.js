@@ -27,8 +27,9 @@ const App = (props) => {
     <Person key={person.id}
       person={person}
     />
-  )
 
+  )
+  console.log(persons)
 
   return (
     <div>
