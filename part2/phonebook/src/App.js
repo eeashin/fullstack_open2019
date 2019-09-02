@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import Person from './components/Person'
 
 const App = (props) => {
-  const [persons, setPersons] = useState([
-    //{ name: 'Arto Hellas' }
-  ])
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
 
   const handleNameChange = (event) => {
@@ -19,8 +17,15 @@ const App = (props) => {
       id: persons.length + 1,
     }
 
-    setPersons(persons.concat(nameObject))
-    setNewName('')
+    const checkedName = persons.map(({ name }) => name.toLowerCase()).indexOf(nameObject.name.toLowerCase()) > -1;
+    console.log(checkedName)
+    if (checkedName) {
+      window.alert(`${newName} is already added to phonebook`)
+    } else {
+      setPersons(persons.concat(nameObject))
+      setNewName('')
+    }
+
   }
 
   const nameRows = () => persons.map((person) =>
