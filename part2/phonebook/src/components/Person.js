@@ -1,9 +1,22 @@
-import React from 'react'
+import React from "react";
 
-const Person = ({ person,number}) => {
+const Person = ({ persons, searchValue }) => {
+  const personRow = person => {
     return (
-        <div>{person}{number}</div>
-    )
-}
+      <div key={person.id}>
+        <p>
+          {person.name} {person.number}
+        </p>
+      </div>
+    );
+  };
+  const searchPerson = persons.filter(person =>
+    person.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
-export default Person
+  return searchValue === ""
+    ? persons.map(person => personRow(person))
+    : searchPerson.map(person => personRow(person));
+};
+
+export default Person;
