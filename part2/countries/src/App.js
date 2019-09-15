@@ -7,6 +7,7 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [searchCountries, setSearchCountries] = useState([]);
+  const [weather, setWeather] = useState({});
 
   useEffect(() => {
     axios.get("https://restcountries.eu/rest/v2/all").then(response => {
@@ -27,7 +28,11 @@ const App = () => {
 
   const countryInfo = () =>
     searchCountries.length === 1 ? (
-      <Country searchCountries={searchCountries} />
+      <Country
+        searchCountries={searchCountries}
+        setWeather={setWeather}
+        weather={weather}
+      />
     ) : (
       <CountryList searchCountries={searchCountries} />
     );

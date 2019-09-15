@@ -1,6 +1,7 @@
 import React from "react";
+import Weather from "./Weather";
 
-const Country = ({ searchCountries }) =>
+const Country = ({ searchCountries, weather, setWeather }) =>
   searchCountries.map(country => (
     <div key={country.numericCode}>
       <div>
@@ -23,6 +24,13 @@ const Country = ({ searchCountries }) =>
           src={country.flag}
           alt="flag"
           style={{ height: "120px", width: "120px" }}
+        />
+      </div>
+      <div>
+        <Weather
+          setWeather={setWeather}
+          capital={country.capital}
+          weather={weather}
         />
       </div>
     </div>

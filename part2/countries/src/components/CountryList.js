@@ -1,10 +1,15 @@
 import React from "react";
 
-const Country = ({ searchCountries }) => {
+const Country = ({ searchCountries, handleShowCountry }) => {
   const countryRow = country => {
     return (
       <div key={country.numericCode}>
-        <h3>{country.name}</h3>
+        <h3>
+          {country.name}
+          <button name={country.name} type="submit" onClick={handleShowCountry}>
+            show
+          </button>
+        </h3>
       </div>
     );
   };
