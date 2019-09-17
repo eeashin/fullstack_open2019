@@ -3,6 +3,9 @@ import axios from "axios";
 import CountryList from "./components/CountryList";
 import Country from "./components/Country";
 
+
+
+
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -23,6 +26,14 @@ const App = () => {
     setSearchCountries(searchCountry);
   };
 
+  const handleShowCountry = event => {
+    setSearchValue(event.target.name)
+    const searchCountries = countries.filter(country =>
+      country.name.toLowerCase().includes(event.target.name.toLowerCase())
+      )
+      setSearchCountries(searchCountries)
+  }
+
   console.log(countries);
   console.log(searchCountries);
 
@@ -34,7 +45,7 @@ const App = () => {
         weather={weather}
       />
     ) : (
-      <CountryList searchCountries={searchCountries} />
+      <CountryList searchCountries={searchCountries} handleShowCountry={handleShowCountry}/>
     );
 
   return (

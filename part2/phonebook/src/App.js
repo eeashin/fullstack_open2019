@@ -11,14 +11,12 @@ const App = () => {
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-      })
-  }, [])
+    console.log("effect");
+    axios.get("http://localhost:3001/persons").then(response => {
+      console.log("promise fulfilled");
+      setPersons(response.data);
+    });
+  }, []);
 
   const handleNameChange = event => {
     setNewName(event.target.value);
@@ -50,9 +48,11 @@ const App = () => {
     if (checkedName) {
       window.alert(`${newName} is already added to phonebook`);
     } else {
-      setPersons(persons.concat(nameObject));
-      setNewName("");
-      setNewNumber(0);
+      axios.post("http://localhost:3001/persons", nameObject).then(response => {
+        setPersons(persons.concat(response.data));
+        setNewName("");
+        setNewNumber(0);
+      });
     }
   };
 
