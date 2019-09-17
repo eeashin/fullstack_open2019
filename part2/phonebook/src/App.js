@@ -56,6 +56,14 @@ const App = () => {
     }
   };
 
+  const deletePersonById = person => {
+    const { id } = person;
+    window.confirm(`Delete ${person.name}?`);
+    personService.deletePersonById(id).then(deletedObject => {
+      setPersons(persons.filter(person => id !== person.id));
+    });
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -72,7 +80,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>numbers</h2>
-      <Person persons={persons} searchValue={searchValue} />
+      <Person persons={persons} searchValue={searchValue} deletePersonById={deletePersonById}/>
     </div>
   );
 };
