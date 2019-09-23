@@ -11,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [message, setMessage] = useState(null);
+  const [errMessage, setErrMessage] = useState(null);
 
   useEffect(() => {
     console.log("effect");
@@ -47,6 +48,7 @@ const App = () => {
         .map(({ name }) => name.toLowerCase())
         .indexOf(nameObject.name.toLowerCase()) > -1;
     console.log(checkedName);
+
     if (checkedName) {
       window.alert(
         `${newName} is already added to phonebook, replace the old number with a new one?`
@@ -56,29 +58,33 @@ const App = () => {
         setPersons(persons.concat(returnedObject));
         setNewName("");
         setNewNumber(0);
-        setMessage(
-          `Added ${newName}`
-          )
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
+        setMessage(`Added ${newName}`);
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
       });
     }
   };
 
-  
   const deletePersonById = person => {
     const { id } = person;
     window.confirm(`Delete ${person.name}?`);
     personService.deletePersonById(id).then(deletedObject => {
       setPersons(persons.filter(person => id !== person.id));
-    });
+    }).catch(err =>{
+      setErrMessage(
+        `Information of ${person.name} has been removed from the server.`
+      );
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+    })
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={message} />
+      <Notification message={message} errMessage={errMessage} />
       <Filter
         searchValue={searchValue}
         handleSearchChange={handleSearchChange}

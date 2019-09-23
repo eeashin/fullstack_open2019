@@ -19,7 +19,7 @@ h2 {
   color: green;
   font-style: italic;
 }
-.error {
+.errMessage {
   color: red;
   background: lightgrey;
   font-size: 20px;
