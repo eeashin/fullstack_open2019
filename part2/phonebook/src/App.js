@@ -77,7 +77,7 @@ const App = () => {
       );
       setTimeout(() => {
         setMessage(null);
-      }, 5000);
+      }, 1000);
     })
   };
 
