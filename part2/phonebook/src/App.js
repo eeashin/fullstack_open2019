@@ -54,7 +54,8 @@ const App = () => {
         `${newName} is already added to phonebook, replace the old number with a new one?`
       );
     } else {
-      personService.create(nameObject).then(returnedObject => {
+      personService.create(nameObject)
+      .then(returnedObject => {
         setPersons(persons.concat(returnedObject));
         setNewName("");
         setNewNumber(0);
@@ -62,7 +63,13 @@ const App = () => {
         setTimeout(() => {
           setMessage(null);
         }, 5000);
-      });
+      })
+      .catch(error => {
+        setErrMessage(error.response.data)
+        setTimeout(() => {
+          setMessage(null);
+        }, 1000);
+      })
     }
   };
 
