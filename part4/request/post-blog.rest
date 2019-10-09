@@ -1,0 +1,7 @@
+ post http://localhost:3001/api/blogs 
+ 
+{
+"title":"First Test", 
+"author":"Eashin", 
+"url":"https://eashin.com"
+}

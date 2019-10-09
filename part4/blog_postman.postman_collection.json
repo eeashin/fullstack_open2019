@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "8c6bfc7e-c3f7-4b7c-b3d1-cd5e06aa1539",
+		"name": "blog_postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Success: http://localhost:3001/api/answers/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNjEzNjJhMmM0NDczMjY3YzIwMGQyOSIsImlhdCI6MTU2NjY1MTk3OH0.Cdj_iaiGocT79bIZI2nlGaxwxbvlc8RiV5hki1BsfWU",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"title\":\"First Test\", \n\"author\":\"Eashin\", \n\"url\":\"https://eashin.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/blogs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"blogs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Success: http://localhost:3001/api/answers/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkNjEzNjJhMmM0NDczMjY3YzIwMGQyOSIsImlhdCI6MTU2NjY1MTk3OH0.Cdj_iaiGocT79bIZI2nlGaxwxbvlc8RiV5hki1BsfWU",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"title\":\"First Test\", \n\"author\":\"Eashin\", \n\"url\":\"https://eashin.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/blogs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"blogs"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
