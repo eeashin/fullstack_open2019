@@ -34,7 +34,7 @@ blogsRouter.post("/", async (request, response, next) => {
   });
   if (!blog.title || !blog.author || !blog.url) {
     response.status(400).send('mandatory data fields missing');
-  } else if (!blog.likes) {
+  } else if (!body.likes) {
     blog.likes = 0;
   }
   try {
