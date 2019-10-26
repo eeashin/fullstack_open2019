@@ -33,7 +33,7 @@ blogsRouter.post("/", async (request, response, next) => {
     likes: body.likes
   });
   if (!blog.title || !blog.author || !blog.url) {
-    response.status(400).send();
+    response.status(400).send('mandatory data fields missing');
   } else if (!blog.likes) {
     blog.likes = 0;
   }
@@ -58,16 +58,15 @@ blogsRouter.delete("/:id", async (request, response, next) => {
 blogsRouter.put("/:id", async (request, response, next) => {
   const body = request.body;
 
-  const blog = {
+  const updateBlog = {
     title: body.title,
     author: body.author,
-    url: body.url
+    url: body.url,
+    likes:body.likes
   };
   try {
-    const blog = await Blog.findByIdAndUpdate(request.params.id, blog, {
-      new: true
-    });
-    response.json(blog);
+    await Blog.findByIdAndUpdate(request.params.id, updateBlog)
+    response.status(201).send();
   } catch (error) {
     next(error);
   }
