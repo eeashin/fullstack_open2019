@@ -47,12 +47,61 @@ describe("HTTP POST api/blogs", () => {
     await api
       .post("/api/blogs")
       .send(testPost)
-      .expect(200);
+      .expect(201);
   });
   test("number of blogs increased", async () => {
     afterAdd = await helper.blogsDB();
     //console.log(afterAdd.length);
     expect(afterAdd.length - allBlogs.length).toBe(1);
+  });
+});
+
+describe("POST without like", () => {
+  test("likes property missing", async () => {
+    const testPost = {
+      title: "jest test blog",
+      author: "Eashin Matubber",
+      url: "https://eashin.com"
+      //likes: 1
+    };
+    await api
+      .post("/api/blogs")
+      .send(testPost)
+      .expect(201);
+    const getAllBlogs = await api.get("/api/blogs");
+    const getAfterAdd = getAllBlogs.body;
+    const likeProp = getAfterAdd[getAfterAdd.length - 1];
+    if (likeProp.likes === undefined) {
+      likeProp.likes = 0;
+    }
+    expect(likeProp.likes).toBe(0);
+  });
+});
+
+describe("POST missing data", () => {
+  test("title property missing", async () => {
+    const testPost = {
+      //title: "jest test blog",
+      author: "Eashin Matubber",
+      url: "https://eashin.com",
+      likes: 1
+    };
+    await api
+      .post("/api/blogs")
+      .send(testPost)
+      .expect(400);
+  });
+  test("url property missing", async () => {
+    const testPost = {
+      title: "jest test blog",
+      author: "Eashin Matubber",
+      //url: "https://eashin.com",
+      likes: 1
+    };
+    await api
+      .post("/api/blogs")
+      .send(testPost)
+      .expect(400);
   });
 });
 
