@@ -7,7 +7,7 @@ usersRouter.get('/', async (request, response, next) => {
     response.json(users.map(u => u.toJSON()))
 })
 
-usersRouter.post('/', async (request, response) => {
+usersRouter.post('/', async (request, response, next) => {
 
     const body = request.body
     if (!body.password) {
