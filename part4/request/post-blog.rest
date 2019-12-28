@@ -1,7 +1,10 @@
- post http://localhost:3001/api/blogs 
- 
+post http://localhost:3001/api/blogs
+Content-Type: application/json
+
 {
-"title":"First Test", 
-"author":"Eashin", 
-"url":"https://eashin.com"
+    "title": "testi 001 schemablog 003",
+    "author": "eashin",
+    "url": "www.eash.com",
+   "uId":"5e06a01c4da99b456f9e6f91",
+    "likes":99
 }
