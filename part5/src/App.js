@@ -23,17 +23,15 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll()
-    .then(userBlogs => {
-        setBlogs(userBlogs)
-      })
-  }, []);
+    .then(res => setBlogs(res))
+	}, [])
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('logged')
     if (loggedUser) {
       const user = JSON.parse(loggedUser)
       setUser(user)
-      //blogService.setToken(user.token)
+      blogService.setToken(user.token)
     }
   }, [])
 
@@ -48,7 +46,7 @@ const App = () => {
 			blogService.setToken(user.token)
 
       setUser(user)
-      setUsername('')
+      setUsername(username)
       setPassword('')
     } catch (exception) {
       showNotify('Invalid username or password')
