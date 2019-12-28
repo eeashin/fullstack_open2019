@@ -4,6 +4,7 @@ import loginService from './services/login'
 import Notify from './components/Notify'
 import LoginForm from './components/LoginForm'
 import Blog from './components/Blog'
+import BlogForm from './components/BlogForm'
 
 
 
@@ -13,6 +14,9 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [notify, setNotify] = useState('')
   const [blogs, setBlogs] = useState([]);
+  const [title, setTitle] = useState('')
+	const [author, setAuthor] = useState('')
+	const [url, setUrl] = useState('')
 
   const showNotify = async (message) => {
     setNotify(message)
@@ -65,6 +69,30 @@ const App = () => {
       setUser(null)
     }
 
+    const handleBlog = async (event) => {
+      event.preventDefault()
+      const blogObj = {
+        title: title,
+        author: author,
+        url: url
+      }
+
+      const newBlog = await blogService.create(blogObj)
+      showNotify('New Blog Saved')
+      setBlogs(blogs.concat(newBlog)) 
+    }
+    const handleTitle = (event) => {
+      setTitle(event.target.value)
+    }
+  
+    const handleAuthor = (event) => {
+      setAuthor(event.target.value)
+    }
+  
+    const handleUrl = (event) => {
+      setUrl(event.target.value)
+    }
+
   return (
     <div>
       <Notify message={notify} />
@@ -83,6 +111,16 @@ const App = () => {
             <p>
               {user.name} Logged In <button onClick={logout}> Logout </button>
             </p>
+            <BlogForm
+            handleBlog={handleBlog}
+            title={title}
+						author={author}
+						url={url}
+						handleTitle={handleTitle}
+						handleAuthor={handleAuthor}
+						handleUrl={handleUrl}
+
+            />
             {blogRows(() => blogService.getAll())}
           </div>
         )
