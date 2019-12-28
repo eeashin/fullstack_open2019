@@ -14,9 +14,19 @@ body {
   
   
   .success {
-    color: grey;
-    background: lightgrey;
-    font-size: 15px;
+    color: rgb(35, 146, 13);
+    background: rgb(197, 195, 195);
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  
+  }
+  .error{
+    color: rgb(245, 16, 8);
+    background: rgb(197, 195, 195);
+    font-size: 20px;
     border-style: solid;
     border-radius: 5px;
     padding: 10px;
