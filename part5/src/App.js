@@ -5,8 +5,7 @@ import Notify from './components/Notify'
 import LoginForm from './components/LoginForm'
 import Blog from './components/Blog'
 import BlogForm from './components/BlogForm'
-
-
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [username, setUsername] = useState('')
@@ -15,8 +14,10 @@ const App = () => {
   const [notify, setNotify] = useState('')
   const [blogs, setBlogs] = useState([]);
   const [title, setTitle] = useState('')
-	const [author, setAuthor] = useState('')
-	const [url, setUrl] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
+
+  const blogFormRef = React.createRef()
 
   const showNotify = async (message) => {
     setNotify(message)
@@ -27,8 +28,8 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll()
-    .then(res => setBlogs(res))
-	}, [])
+      .then(res => setBlogs(res))
+  }, [])
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('logged')
@@ -42,12 +43,12 @@ const App = () => {
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
-      const user = await loginService.login({ 
-        username, 
-        password 
+      const user = await loginService.login({
+        username,
+        password
       })
-			window.localStorage.setItem('logged', JSON.stringify(user))
-			blogService.setToken(user.token)
+      window.localStorage.setItem('logged', JSON.stringify(user))
+      blogService.setToken(user.token)
 
       setUser(user)
       setUsername(username)
@@ -64,34 +65,34 @@ const App = () => {
       return <Blog key={blog.id} blog={blog} />
     })
 
-    const logout = () => {
-      window.localStorage.removeItem('logged')
-      setUser(null)
+  const logout = () => {
+    window.localStorage.removeItem('logged')
+    setUser(null)
+  }
+
+  const handleBlog = async (event) => {
+    event.preventDefault()
+    const blogObj = {
+      title: title,
+      author: author,
+      url: url
     }
 
-    const handleBlog = async (event) => {
-      event.preventDefault()
-      const blogObj = {
-        title: title,
-        author: author,
-        url: url
-      }
+    const newBlog = await blogService.create(blogObj)
+    showNotify('New Blog Saved')
+    setBlogs(blogs.concat(newBlog))
+  }
+  const handleTitle = (event) => {
+    setTitle(event.target.value)
+  }
 
-      const newBlog = await blogService.create(blogObj)
-      showNotify('New Blog Saved')
-      setBlogs(blogs.concat(newBlog)) 
-    }
-    const handleTitle = (event) => {
-      setTitle(event.target.value)
-    }
-  
-    const handleAuthor = (event) => {
-      setAuthor(event.target.value)
-    }
-  
-    const handleUrl = (event) => {
-      setUrl(event.target.value)
-    }
+  const handleAuthor = (event) => {
+    setAuthor(event.target.value)
+  }
+
+  const handleUrl = (event) => {
+    setUrl(event.target.value)
+  }
 
   return (
     <div>
@@ -104,27 +105,29 @@ const App = () => {
           setUsername={setUsername}
           setPassword={setPassword}
         />
-
       ) : (
           <div>
-             <h1>blogs</h1>
+            <h1>Blogs</h1>
             <p>
-              {user.name} Logged In <button onClick={logout}> Logout </button>
+              {user.name} logged in <button onClick={logout}>Logout</button>
             </p>
-            <BlogForm
-            handleBlog={handleBlog}
-            title={title}
-						author={author}
-						url={url}
-						handleTitle={handleTitle}
-						handleAuthor={handleAuthor}
-						handleUrl={handleUrl}
+            <Togglable buttonLabel='new blog' ref={blogFormRef}>
+              <BlogForm
+                handleBlog={handleBlog}
+                title={title}
+                author={author}
+                url={url}
+                handleTitle={handleTitle}
+                handleAuthor={handleAuthor}
+                handleUrl={handleUrl}
 
-            />
+              />
+            </Togglable>
             {blogRows(() => blogService.getAll())}
           </div>
         )
       }
+
     </div>
   )
 

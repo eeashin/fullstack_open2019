@@ -10,13 +10,13 @@ const Notify = ({ message }) => {
             </div>
         )
     } else {
-        return(
+        return (
             <div className="success">
                 {message}
             </div>
         )
     }
-    
+
 };
 
 export default Notify
