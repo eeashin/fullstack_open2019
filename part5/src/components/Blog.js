@@ -10,16 +10,23 @@ const blogStyle = {
   backgroundColor: '#9ad5fb'
 }
 
-const Blog = ({ blog, like, removeBlog}) => (
+const Blog = ({ blog, like, removeBlog }) => (
   <Togglable buttonLabel={blog.title}>
     <div style={blogStyle}>
       <p>{blog.title}</p>
-      <p>{blog.url}</p>
+      <a href={blog.url} target='blank'>{blog.url}</a>
       <p>{blog.likes} likes <button onClick={() => like(blog)}>Like</button></p>
       <p>{blog.author}</p>
-      <p><button onClick={(event) => removeBlog(event, blog)}>remove</button></p>
+      {
+        blog.user
+          ?
+          <button onClick={(event) => removeBlog(event, blog)}>remove</button>
+          :
+          null
+      }
+
     </div>
   </Togglable>
 )
- 
+
 export default Blog
