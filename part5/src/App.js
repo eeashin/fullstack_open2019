@@ -75,9 +75,20 @@ const App = () => {
     ).concat(blogObj))
   }
 
+  const removeBlog = async (event, blog) => {
+    event.preventDefault()
+    if (window.confirm(`remove blog ${blog.title} by ${blog.author}`)) {
+      blogService.remove(blog.id).then(response => {
+        if(response !== 401) {
+          setBlogs(blogs.filter(delBlog => delBlog !== blog))
+        }
+      })
+    }
+  }
+
   const blogRows = () =>
     blogs.map(blog => {
-      return <Blog key={blog.id} blog={blog} like={blogLikes} />
+      return <Blog key={blog.id} blog={blog} like={blogLikes} removeBlog={removeBlog} />
     })
 
   const logout = () => {
