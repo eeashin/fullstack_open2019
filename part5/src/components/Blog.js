@@ -10,7 +10,7 @@ const blogStyle = {
   backgroundColor: '#9ad5fb'
 }
 
-const Blog = ({ blog, like,removeBlog}) => (
+const Blog = ({ blog, like, removeBlog}) => (
   <Togglable buttonLabel={blog.title}>
     <div style={blogStyle}>
       <p>{blog.title}</p>

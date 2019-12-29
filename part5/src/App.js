@@ -119,7 +119,7 @@ const App = () => {
   const handleUrl = (event) => {
     setUrl(event.target.value)
   }
-
+  
   return (
     <div>
       <Notify message={notify} />
