@@ -59,10 +59,24 @@ const App = () => {
       }, 5000)
     }
   }
+  const blogLikes = async (newObj) => {
+    const blogObj = {
+      id: newObj.id,
+      author: newObj.author,
+      title: newObj.title,
+      url: newObj.url,
+      likes: newObj.likes + 1
+    }
+
+    const updatedBlog = await blogService.update(blogObj.id, blogObj)
+    setBlogs(blogs.filter(
+      blog => blog.id !== blogObj.id
+    ).concat(blogObj))
+  }
 
   const blogRows = () =>
     blogs.map(blog => {
-      return <Blog key={blog.id} blog={blog} />
+      return <Blog key={blog.id} blog={blog} like={blogLikes} />
     })
 
   const logout = () => {
