@@ -1,7 +1,7 @@
 import React from 'react'
 import { addNew } from '../reducers/anecdoteReducer'
 
-const CreateForm = (props) => (
+const AnecdoteForm = (props) => (
     <div>
         <h2>create new</h2>
         <form onSubmit={(event) => {
@@ -14,4 +14,4 @@ const CreateForm = (props) => (
     </div>
 )
 
-export default CreateForm 
+export default AnecdoteForm 
