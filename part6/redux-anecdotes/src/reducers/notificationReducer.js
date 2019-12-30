@@ -1,5 +1,5 @@
 
-const notificationReducer = (state = 'A Message', action) => {
+const notificationReducer = (state = null, action) => {
     console.log('state notification: ', state)
     console.log('action', action)
 
