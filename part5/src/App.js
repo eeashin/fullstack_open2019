@@ -21,14 +21,13 @@ const App = () => {
 
   const showNotify = async (message) => {
     setNotify(message)
-    const notify = setTimeout(() => {
+    setTimeout(() => {
       setNotify('')
     }, 3000)
   }
 
   useEffect(() => {
-    blogService.getAll()
-      .then(res => setBlogs(res))
+   blogService.getAll().then(res => setBlogs(res))
   }, [])
   blogs.sort((a, b) => b.likes - a.likes);
 
@@ -69,7 +68,7 @@ const App = () => {
       likes: newObj.likes + 1
     }
 
-    const updatedBlog = await blogService.update(blogObj.id, blogObj)
+    await blogService.update(blogObj.id, blogObj)
     setBlogs(blogs.filter(
       blog => blog.id !== blogObj.id
     ).concat(blogObj))

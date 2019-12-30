@@ -32,3 +32,11 @@ body {
     padding: 10px;
     margin-bottom: 10px;
   }
+  .blog{
+    padding-top: 10;
+    padding-left: 2px;
+    border: 'solid';
+    border-width: 1;
+    margin-bottom: 5;
+    background-color: '#9ad5fb';
+  }
