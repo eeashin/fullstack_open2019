@@ -43,6 +43,6 @@ describe('<App />', () => {
     await waitForElement(
       () => component.getByText('login')
     )
-    expect(component.container.getElementsByClassName('blog').length).toBe(6)
+    expect(component.container.toHaveStyle('blogStyle').length).toBe(6)
   })
 })
