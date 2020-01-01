@@ -16,5 +16,7 @@ const Filter = (props) => {
     </div>
   )
 }
-
-export default connect(null, { setFilter })(Filter)
+const mapDispatchToProps = {
+  setFilter
+}
+export default connect(null, mapDispatchToProps)(Filter)

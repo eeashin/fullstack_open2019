@@ -17,7 +17,7 @@ const AnecdoteList = (props) => {
    
     return (
         <div>
-            {afterFilter.sort((a, b) => b.votes - a.votes).map(anecdote =>
+            {props.visibleAnecdotes.map(anecdote =>
                 <div key={anecdote.id}>
                     <div>{anecdote.content}</div>
                     <div> has {anecdote.votes}
@@ -29,13 +29,13 @@ const AnecdoteList = (props) => {
     )
 }
 
-let afterFilter = ({ anecdote, filter }) => {
-//let afterFilter
-if (!filter) {
-    afterFilter = anecdote
-} else {
-    afterFilter = anecdote.filter(a => a.content.includes(filter))
-}
+const anecdotesToShow = (state) => {
+    let filter = state.filter
+    if (!filter) {
+        return state.anecdote.sort((a, b) => b.votes - a.votes)
+    } else {
+        return state.anecdote.filter(a => a.content.includes(filter)).sort((a, b) => b.votes - a.votes)
+    }
 }
 
 const mapDispatchToProps = {
@@ -44,8 +44,10 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => {
+    console.log('STATE IN MAP STATE:', state)
     return {
-        afterFilter: afterFilter(state)
+        visibleAnecdotes: anecdotesToShow(state),
+        filter: state.filter
     }
 }
 

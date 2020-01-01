@@ -5,7 +5,7 @@ import Notification from './components/Notification';
 import Filter from './components/Filter'
 
 
-const App = (props) => {
+const App = () => {
   
   return (
     <div>
