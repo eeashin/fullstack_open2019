@@ -1,6 +1,8 @@
 import React from 'react'
-import { vote } from '../reducers/anecdoteReducer'
+import { connect } from 'react-redux'
+import { voteA } from '../reducers/anecdoteReducer'
 import { setMessage } from '../reducers/notificationReducer'
+
 
 const AnecdoteList = (props) => {
 
@@ -8,22 +10,12 @@ const AnecdoteList = (props) => {
 
     const voteAndNotify = (id, content) => {
         props.store.dispatch(setMessage(`you voted ${content}`))
-        props.store.dispatch(vote(id))
+        props.store.dispatch(voteA(id))
         setTimeout(() => {
             props.store.dispatch(setMessage(null))
         }, 5000)
     }
-    const { anecdote, filter } = props.store.getState()
-    let afterFilter
-    if (!filter) {
-        afterFilter = anecdote
-    } else {
-        afterFilter = anecdote.filter(a => a.content.includes(filter))
-    }
-
-
-    console.log("CHECK:", afterFilter, anecdote)
-    console.log("STATE", props.store.getState())
+   
     return (
         <div>
             {afterFilter.sort((a, b) => b.votes - a.votes).map(anecdote =>
@@ -38,4 +30,28 @@ const AnecdoteList = (props) => {
     )
 }
 
-export default AnecdoteList
+let afterFilter = ({ anecdote, filter }) => {
+//let afterFilter
+if (!filter) {
+    afterFilter = anecdote
+} else {
+    afterFilter = anecdote.filter(a => a.content.includes(filter))
+}
+}
+
+
+
+
+const mapDispatchToProps = {
+    voteA,
+    setMessage
+}
+
+const mapStateToProps = (state) => {
+    return {
+        afterFilter: afterFilter(state),
+        filter: state.filter
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnecdoteList)

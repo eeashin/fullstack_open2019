@@ -1,28 +1,19 @@
 import React from 'react'
-import { addNew } from '../reducers/anecdoteReducer'
-import { setMessage } from '../reducers/notificationReducer'
+import { setFilter } from '../reducers/filterReducer'
 
-const AnecdoteForm = (props) => {
+const Filter = (props) => {
+  const handleChange = (event) => {
+    props.store.dispatch(setFilter(event.target.value))
+  }
+  const style = {
+    marginBottom: 10
+  }
 
-    const addAndNotify = (event) => {
-        event.preventDefault()
-        props.store.dispatch(setMessage(`you created ${event.target.newData.value}`))
-        props.store.dispatch(addNew(event.target.newData.value))
-        setTimeout(() => {
-            props.store.dispatch(setMessage(null))
-        }, 5000)
-    }
-
-    return (
-        <div>
-            <h2>create new</h2>
-            <form onSubmit={(event) => { addAndNotify(event) }}>
-                <input name='newData'></input>
-                <button>create</button>
-            </form>
-
-        </div>
-    )
+  return (
+    <div style={style}>
+      filter <input onChange={handleChange} />
+    </div>
+  )
 }
 
-export default AnecdoteForm 
+export default Filter
