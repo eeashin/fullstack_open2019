@@ -3,16 +3,15 @@ import { connect } from 'react-redux'
 import { voteA } from '../reducers/anecdoteReducer'
 import { setMessage } from '../reducers/notificationReducer'
 
-
 const AnecdoteList = (props) => {
 
     //const anecdotesList = props.store.getState().anecdote
 
     const voteAndNotify = (id, content) => {
-        props.store.dispatch(setMessage(`you voted ${content}`))
-        props.store.dispatch(voteA(id))
+        props.setMessage(`you voted ${content}`)
+        props.voteA(id)
         setTimeout(() => {
-            props.store.dispatch(setMessage(null))
+            props.setMessage(null)
         }, 5000)
     }
    
@@ -39,9 +38,6 @@ if (!filter) {
 }
 }
 
-
-
-
 const mapDispatchToProps = {
     voteA,
     setMessage
@@ -49,8 +45,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => {
     return {
-        afterFilter: afterFilter(state),
-        filter: state.filter
+        afterFilter: afterFilter(state)
     }
 }
 
