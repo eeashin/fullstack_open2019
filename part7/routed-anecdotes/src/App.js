@@ -23,9 +23,6 @@ const Anecdote = ({ anecdote }) => {
       <h3> {anecdote.content} </h3>
       <p>has {anecdote.votes} votes</p>
       <p>for more info see <a href={`${anecdote.info}`}>{anecdote.info} </a></p>
-
-
-
     </div>
   )
 }
@@ -33,11 +30,10 @@ const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >
-        <Link to={`/anecdotes/${anecdote.id}`} >{anecdote.content}</Link>
-      </li>
-      )
-      }
+      {
+        anecdotes.map(anecdote =>
+          <li key={anecdote.id} >
+            {anecdote.content}</li>)}
     </ul>
   </div>
 )
@@ -103,6 +99,8 @@ const CreateNew = (props) => {
 
 }
 
+const CreateNewR = withRouter(CreateNew)
+
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
     {
@@ -126,6 +124,8 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`You created ${anecdote.content}!`)
+    setTimeout(() => { setNotification(null) }, 10000)
   }
 
   const anecdoteById = (id) =>
@@ -148,10 +148,24 @@ const App = () => {
         <div>
           <h1>Software anecdotes</h1>
           <Menu />
-          <Route exact path={"/"} render={() => <AnecdoteList anecdotes={anecdotes} />} />
-          <Route exact path={"/anecdotes/:id"} render={({ match }) => 
-          <Anecdote anecdote={anecdoteById(match.params.id)}/>} />
-          <Route exact path={"/create"} render={() => <CreateNew addNew={addNew} />} />
+          <div>
+            <p>{notification ? notification : null}</p>
+          </div>
+          <Route exact path={"/"} render={() =>
+            <AnecdoteList anecdotes={anecdotes} />
+          } />
+          <Route exact path={"/anecdotes/:id"} render={({ match }) =>
+            <Anecdote anecdote={anecdoteById(match.params.id)} />} />
+          <Route exact path={"/create"} render={() =>
+            notification === '' ?
+              <CreateNewR addNew={addNew}
+                addNew={addNew}
+                setNotification={setNotification}
+                notification={notification}
+              />
+              :
+              <Redirect to={"/"} />
+          } />
           <Route exact path={"/about"} render={() => <About />} />
 
         </div>
