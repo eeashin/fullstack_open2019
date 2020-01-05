@@ -6,12 +6,13 @@ import anecdoteService from "../service/anecdotes";
 
 const AnecdoteForm = (props) => {
 
-    const addAndNotify = (event) => {
+    const addAndNotify = async (event) => {
         event.preventDefault()
-        const content = event.target.newData.value
-        // const newanecdote = anecdoteService.create(content)
-        props.addNew(content)
-        props.setMessage(`you created ${event.target.newData.value}`)
+        const content = event.target.data.value
+        event.target.data.value = ''
+        const newanecdote = await anecdoteService.createNew(content)
+        props.addNew(newanecdote)
+        props.setMessage(`you created ${content}`)
         setTimeout(() => {
             props.setMessage(null)
         }, 5000)
@@ -20,8 +21,8 @@ const AnecdoteForm = (props) => {
     return (
         <div>
             <h2>create new</h2>
-            <form onSubmit={(event) => { addAndNotify(event) }}>
-                <input name='newData'></input>
+            <form onSubmit={addAndNotify}>
+                <input name='data'></input>
                 <button>create</button>
             </form>
 

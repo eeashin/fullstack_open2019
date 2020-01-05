@@ -25,14 +25,17 @@ export const voteA = (id) => ({
   data:  { id }
 })
 
-export const addNew = (newData) => ({
-  type: 'NEW_ANECDOTE',
-  data: {
-    content: newData,
-   // id: getId(),
-    votes: 0
-  }
-})
+export const addNew = (data) => {
+  return {
+    type: 'NEW_ANECDOTE',
+    data
+    // {
+    //   content: newData,
+    //  // id: getId(),
+    //   // votes: 0
+    // }
+  } 
+}
 
 export const initializeAnecdotes = (anecdotes) => {
   return {
