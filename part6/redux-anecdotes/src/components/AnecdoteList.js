@@ -7,21 +7,25 @@ const AnecdoteList = (props) => {
 
     //const anecdotesList = props.store.getState().anecdote
 
-    const voteAndNotify = (anecdote) => {
-        props.voteA(anecdote)
-        props.setMessage(`you voted ${anecdote.content}`)
+    const voteAndNotify = (id, content) => {
+        props.setMessage(`you voted ${content}`)
+        props.voteA(id)
         setTimeout(() => {
             props.setMessage(null)
         }, 5000)
     }
-   
+
     return (
         <div>
+            <h2>Anecdotes</h2>
             {props.visibleAnecdotes.map(anecdote =>
                 <div key={anecdote.id}>
                     <div>{anecdote.content}</div>
                     <div> has {anecdote.votes}
-                        <button onClick={() => voteAndNotify(anecdote)}>vote</button>
+                        <button onClick={(event) => {
+                            event.preventDefault();
+                        voteAndNotify(anecdote.id, anecdote.content)}
+                        }>vote</button>
                     </div>
                 </div>
             )}
@@ -34,7 +38,7 @@ const anecdotesToShow = (state) => {
     if (!filter) {
         return state.anecdote.sort((a, b) => b.votes - a.votes)
     } else {
-        return state.anecdote.filter(a => a.content.includes(filter)).sort((a, b) => b.votes - a.votes)
+        return state.anecdote.filter(a => a.content.includes(filter))
     }
 }
 

@@ -11,14 +11,13 @@ import anecdoteService from './service/anecdotes'
 
 const App = (props) => {
 
-  useEffect(() => {
-    anecdoteService
-      .getAll().then(anecdotes => props.initializeAnecdotes(anecdotes))
-  },[])
+  // useEffect(() => {
+  //   props.initializeAnecdotes(anecdotes)
+  // },[])
   
   return (
     <div>
-      <h2>Anecdotes</h2>
+      <h1>Programming anecdotes</h1>
       <Notification />
       <Filter />
       <AnecdoteList />
@@ -27,4 +26,5 @@ const App = (props) => {
   )
 }
 
-export default connect(null, { initializeAnecdotes })(App)
+export default App;
+// connect(null, { initializeAnecdotes })(App)
