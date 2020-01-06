@@ -8,7 +8,7 @@ const Notification = (props) => {
     padding: 10,
     borderWidth: 1
   }
-  
+
   if (props.notification) {
     return <div style={style}>
       {props.notification}

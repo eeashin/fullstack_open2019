@@ -5,9 +5,6 @@ import AnecdoteList from './components/AnecdoteList'
 import Notification from './components/Notification';
 import Filter from './components/Filter'
 import { initializeAnecdotes } from './reducers/anecdoteReducer'
-import anecdoteService from './service/anecdotes'
-
-
 
 const App = (props) => {
 

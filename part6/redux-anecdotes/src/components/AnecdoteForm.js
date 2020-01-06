@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addNew } from '../reducers/anecdoteReducer'
 import { setMessage } from '../reducers/notificationReducer'
-import anecdoteService from "../service/anecdotes";
 
 const AnecdoteForm = (props) => {
 
@@ -28,9 +27,8 @@ const AnecdoteForm = (props) => {
 }
 
 const mapDispatchToProps = {
-  addNew,
-  setMessage
+    addNew,
+    setMessage
 }
 
-
-export default connect(null,mapDispatchToProps)(AnecdoteForm)
+export default connect(null, mapDispatchToProps)(AnecdoteForm)
