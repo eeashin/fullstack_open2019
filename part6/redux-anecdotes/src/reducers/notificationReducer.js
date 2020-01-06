@@ -1,6 +1,6 @@
 
 const notificationReducer = (state = null, action) => {
-    console.log('state notification: ', state)
+    console.log('state noti: ', state)
     console.log('action', action)
 
     switch (action.type) {

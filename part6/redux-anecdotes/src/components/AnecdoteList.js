@@ -36,9 +36,9 @@ const AnecdoteList = (props) => {
 const anecdotesToShow = (state) => {
     let filter = state.filter
     if (!filter) {
-        return state.anecdote.sort((a, b) => b.votes - a.votes)
+        return state.anecdotes.sort((a, b) => b.votes - a.votes)
     } else {
-        return state.anecdote.filter(a => a.content.includes(filter))
+        return state.anecdotes.filter(a => a.content.includes(filter))
     }
 }
 

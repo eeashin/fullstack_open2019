@@ -1,4 +1,4 @@
-
+import anecdoteService from '../service/anecdotes'
 // const anecdotesAtStart = [
 //   'If it hurts, do it more often',
 //   'Adding manpower to a late software project makes it later!',
@@ -25,22 +25,35 @@ export const voteA = (id) => ({
   data:  { id }
 })
 
-export const addNew = (data) => {
-  return {
-    type: 'NEW_ANECDOTE',
-    data
-    // {
-    //   content: newData,
-    //  // id: getId(),
-    //   // votes: 0
-    // }
-  } 
+// export const addNew = (data) => {
+//   return {
+//     type: 'NEW_ANECDOTE',
+//     data
+//     // {
+//     //   content: newData,
+//     //  // id: getId(),
+//     //   // votes: 0
+//     // }
+//   } 
+// }
+
+export const addNew = content => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(content)
+    dispatch({
+      type: 'NEW_ANECDOTE',
+      data: newAnecdote,
+    })
+  }
 }
 
-export const initializeAnecdotes = (anecdotes) => {
-  return {
-    type: 'INIT_ANECDOTES',
-    data: anecdotes
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
+      type: 'INIT_ANECDOTES',
+      data: anecdotes
+    })
   }
 }
 
@@ -55,7 +68,7 @@ const anecdoteReducer = (state = [], action) => {
       const anecdote = state.find(a => a.id === id)
       const voteClicked = { ...anecdote, votes: anecdote.votes + 1 }
       return state.map(a => a.id !== id ? a : voteClicked)
-      // return state.filter(a => a.id !== action.data.id ? a : a.votes + 1)
+      //return state.filter(a => a.id !== id ? a : a.votes + 1)
     case 'NEW_ANECDOTE':
       return [...state, action.data]
       case 'INIT_ANECDOTES':

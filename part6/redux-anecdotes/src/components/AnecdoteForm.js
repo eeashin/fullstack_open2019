@@ -10,12 +10,9 @@ const AnecdoteForm = (props) => {
         event.preventDefault()
         const content = event.target.data.value
         event.target.data.value = ''
-        const newanecdote = await anecdoteService.createNew(content)
-        props.addNew(newanecdote)
-        props.setMessage(`you created ${content}`)
-        setTimeout(() => {
-            props.setMessage(null)
-        }, 5000)
+        //const newAnecdote = await anecdoteService.createNew(content)
+        props.addNew(content)
+        props.setMessage(`you created ${content}`, 10)
     }
 
     return (
@@ -23,7 +20,7 @@ const AnecdoteForm = (props) => {
             <h2>create new</h2>
             <form onSubmit={addAndNotify}>
                 <input name='data'></input>
-                <button>create</button>
+                <button type="submit">create</button>
             </form>
 
         </div>
@@ -36,4 +33,4 @@ const mapDispatchToProps = {
 }
 
 
-export default connect(null, mapDispatchToProps)(AnecdoteForm)
+export default connect(null,mapDispatchToProps)(AnecdoteForm)
