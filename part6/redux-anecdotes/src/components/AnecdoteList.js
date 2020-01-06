@@ -7,11 +7,11 @@ const AnecdoteList = (props) => {
 
     //const anecdotesList = props.store.getState().anecdote
 
-    const voteAndNotify = (id, content) => {
-        props.setMessage(`you voted ${content}`)
-        props.voteA(id)
+    const voteAndNotify = (anecdote) => {
+        props.voteA(anecdote)
+        props.setMessage(`you voted ${anecdote.content}`)
         setTimeout(() => {
-            props.setMessage(null)
+            props.setMessage()
         }, 5000)
     }
 
@@ -22,10 +22,7 @@ const AnecdoteList = (props) => {
                 <div key={anecdote.id}>
                     <div>{anecdote.content}</div>
                     <div> has {anecdote.votes}
-                        <button onClick={(event) => {
-                            event.preventDefault();
-                        voteAndNotify(anecdote.id, anecdote.content)}
-                        }>vote</button>
+                        <button onClick={() => voteAndNotify(anecdote)}>vote</button>
                     </div>
                 </div>
             )}
